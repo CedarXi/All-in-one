@@ -22,7 +22,7 @@ All-in-one 是一个开源的模块化内容构建编辑器，它不同于传统
 
 ***
 
-# All-in-one what
+# what is All-in-one 
 All-in-one is an open source modular content construction editor. It is different from traditional text editors, and all content is built with the concept of modules. Inspired by Notion
 
 ## Flexible plugging
@@ -39,7 +39,7 @@ The data saved by all components is stored in Vuex in the form of Json for diffe
 * Other minor issues
 
 #### 🧑‍💻 List of features to be developed
--[] Image upload component
--[] Drag and drop of components, drag and drop ready to use Vue.Draggable
--[] Form component
--[] Kanban components
+- [ ] Image upload component
+- [ ] Drag and drop of components, drag and drop ready to use Vue.Draggable
+- [ ] Form component
+- [ ] Kanban components
