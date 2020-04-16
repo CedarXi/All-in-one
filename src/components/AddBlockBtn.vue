@@ -36,9 +36,21 @@ export default {
 	methods: {
 		openMenuShow(e) {
 			let a = { x: e.clientX, y: e.clientY };
+
+			let b = true;
+
 			this.$store.commit("mutationAddMenuContentClientXY", a);
-			this.$store.commit("mutationIsShowAddMenu", true);
-			this.$store.commit("mutationCurrentBlockIndex", this.BlocksIndex);
+
+			setTimeout(() => {
+				this.$store.commit("mutationIsShowAddMenu", b);
+			}, 50);
+
+			setTimeout(() => {
+				this.$store.commit(
+					"mutationCurrentBlockIndex",
+					this.BlocksIndex
+				);
+			}, 50);
 		}
 	}
 };

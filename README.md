@@ -22,10 +22,10 @@ All-in-one 是一个开源的模块化内容构建编辑器，它不同于传统
 - [x] 标题3
 - [x] 符号列表
 - [x] 提示栏
+- [x] 组件的拖拽移动
 
 
 #### 🧑‍💻 待开发的模块
-- [ ] 组件的拖拽移动，拖拽准备用 Vue.Draggable 
 - [ ] 事件节点组件
 - [ ] 图片上传组件
 - [ ] 表格组件
@@ -58,10 +58,10 @@ The data saved by all components is stored in Vuex in the form of Json for diffe
 - [x] Heading3
 - [x] BulletedList
 - [x] Hint
-
+- [x] Drag and drop of components
 
 #### 🧑‍💻 Modules to be developed
-- [ ] Drag and drop of components, drag and drop ready to use Vue.Draggable
+
 - [ ] EventNode component
 - [ ] Image upload component
 - [ ] Form component

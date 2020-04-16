@@ -1,83 +1,84 @@
 <template>
 	<div class="about">
-		<h1>This is an about page</h1>
-		<div class="inputs">
-			<div v-for="(item,index) in inputList" :key="index">
-				<input
-					type="text"
-					v-model="item.val"
-					class="border-input"
-					@keyup="nextFocus($event,index)"
-					@keydown="changeValue(index)"
-				/>
-			</div>
+		<div class="col-1">
+			<button class="btn btn-secondary button" @click="add">Add</button>
 		</div>
+
+		<div class="col-7">
+			<h3>Draggable {{ draggingInfo }}</h3>
+
+			<draggable tag="ul" :list="list" class="list-group" handle=".handle">
+				<li class="list-group-item" v-for="(element, idx) in list" :key="element.name">
+					<!-- <i class="fa fa-align-justify handle"></i> -->
+					<i class="el-icon-edit handle"></i>
+					<span class="text">{{ element.name }}</span>
+					<input type="text" class="form-control" v-model="element.text" />
+					<!-- <i class="el-icon-edit" @click="removeAt(idx)"></i> -->
+				</li>
+			</draggable>
+		</div>
+
+		<rawDisplayer class="col-3" :value="list" title="List" />
 	</div>
 </template>
 
-<style lang="less">
-.about {
-  text-align: center;
-	.border-input {
-		background: #ffffff;
-		width: 60px;
-		font-size: 60px;
-		height: 60px;
-		margin-left: 15px;
-		margin-right: 15px;
-		text-align: center;
-		border-bottom: 1px solid #333333;
-		border-top: 0px;
-		border-left: 0px;
-		border-right: 0px;
-	}
-
-	.inputs {
-		margin-top: 31px;
-		display: flex;
-		justify-content: center;
-	}
-}
-</style>
 <script>
+let id = 3;
+import draggable from "vuedraggable";
+
 export default {
-	name: "About",
+	name: "about",
+	display: "Handle",
+	instruction: "Drag using the handle icon",
+	order: 5,
+	components: {
+		draggable
+	},
 	data() {
 		return {
-			inputList: [
-				{ val: "" },
-				{ val: "" },
-				{ val: "" },
-				{ val: "" },
-				{ val: "" },
-				{ val: "" }
-			]
+			list: [
+				{ name: "John", text: "", id: 0 },
+				{ name: "Joao", text: "", id: 1 },
+				{ name: "Jean", text: "", id: 2 }
+			],
+			dragging: false
 		};
 	},
+	computed: {
+		draggingInfo() {
+			return this.dragging ? "under drag" : "";
+		}
+	},
 	methods: {
-		/*对焦到下一个input框去*/
-		nextFocus(el, index) {
-			var dom = document.getElementsByClassName("border-input"),
-				currInput = dom[index],
-				nextInput = dom[index + 1],
-				lastInput = dom[index - 1];
-			/*这里的keyCode 根据不同的平台或许不同,安卓就是不是8*/
-			if (el.keyCode != 8) {
-				if (index < this.inputList.length - 1) {
-					nextInput.focus();
-				} else {
-					currInput.blur();
-				}
-			} else {
-				if (index != 0) {
-					lastInput.focus();
-				}
-			}
+		removeAt(idx) {
+			this.list.splice(idx, 1);
 		},
-		/*当键盘按下的时候清空原有的数*/
-		changeValue(index) {
-			this.inputList[index].val = "";
+		add: function() {
+			id++;
+			this.list.push({ name: "Juan " + id, id, text: "" });
 		}
 	}
 };
 </script>
+<style scoped>
+.button {
+	margin-top: 35px;
+}
+.handle {
+	float: left;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.close {
+	float: right;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+input {
+	display: inline-block;
+	width: 50%;
+}
+.text {
+	margin: 20px;
+}
+</style>

@@ -23,23 +23,34 @@
 				:style="{ top: addMenuContentClientXY.y+20+'px', left:addMenuContentClientXY.x+48+'px' }"
 				class="add-block-content"
 			>
+				<!-- 添加组件的弹窗 -->
 				<AddBlockContent></AddBlockContent>
 			</div>
-			<div class="line-wrap" v-for="(item,index) in getCurrentPageBlocks" :key="index">
-				<div class="line-left">
-					<AddBlockBtn :BlocksIndex="index"></AddBlockBtn>
-					<DragBtn></DragBtn>
+			<draggable tag="ul" :list="getCurrentPageBlocks" class="list-group" handle=".handle">
+				<div
+					class="line-wrap list-group-item"
+					v-for="(item,index) in getCurrentPageBlocks"
+					:key="index"
+				>
+					<div class="line-left">
+						<!-- 弹出添加组件的弹窗+号按钮 -->
+						<AddBlockBtn :BlocksIndex="index"></AddBlockBtn>
+						<!-- 拖拽组件 -->
+						<a class="drag-btn handle">
+							<i class="iconfont icondrag"></i>
+						</a>
+					</div>
+					<div class="line-right">
+						<TextBlock v-model="item.data" :BlocksIndex="index" v-if="item.type=='text'"></TextBlock>
+						<TodoBlock v-model="item.data" :BlocksIndex="index" v-if="item.type=='todo'"></TodoBlock>
+						<Heading1 v-model="item.data" :BlocksIndex="index" v-if="item.type=='heading1'"></Heading1>
+						<Heading2 v-model="item.data" :BlocksIndex="index" v-if="item.type=='heading2'"></Heading2>
+						<Heading3 v-model="item.data" :BlocksIndex="index" v-if="item.type=='heading3'"></Heading3>
+						<BulletedList v-model="item.data" :BlocksIndex="index" v-if="item.type=='BulletedList'"></BulletedList>
+						<Hint v-model="item.data" :BlocksIndex="index" v-if="item.type=='hint'"></Hint>
+					</div>
 				</div>
-				<div class="line-right">
-					<TextBlock v-model="item.data" :BlocksIndex="index" v-if="item.type=='text'"></TextBlock>
-					<TodoBlock v-model="item.data" :BlocksIndex="index" v-if="item.type=='todo'"></TodoBlock>
-					<Heading1 v-model="item.data" :BlocksIndex="index" v-if="item.type=='heading1'"></Heading1>
-					<Heading2 v-model="item.data" :BlocksIndex="index" v-if="item.type=='heading2'"></Heading2>
-					<Heading3 v-model="item.data" :BlocksIndex="index" v-if="item.type=='heading3'"></Heading3>
-					<BulletedList v-model="item.data" :BlocksIndex="index" v-if="item.type=='BulletedList'"></BulletedList>
-					<Hint v-model="item.data" :BlocksIndex="index" v-if="item.type=='hint'"></Hint>
-				</div>
-			</div>
+			</draggable>
 		</div>
 	</div>
 </template>
@@ -74,6 +85,19 @@
 		border-radius: 2px;
 		box-shadow: 0 8px 42px -8px rgba(82, 94, 102, 0.15);
 		margin-bottom: 100px;
+		.drag-btn {
+			padding: 2px 5px;
+			border-radius: 2px;
+			color: #999999;
+			.icondrag {
+				font-size: 14px;
+			}
+		}
+		.drag-btn:hover {
+			background: #eeeeee;
+			cursor: pointer;
+		}
+
 		.add-block-content {
 			position: absolute;
 		}
@@ -107,9 +131,11 @@
 
 <script>
 // @ is an alias to /src
+// 引入vuedraggable拖拽组件
+import draggable from "vuedraggable";
+// 编写的模块组件
 import AddBlockBtn from "@/components/AddBlockBtn";
 import AddBlockContent from "@/components/AddBlockContent";
-import DragBtn from "@/components/DragBtn";
 import TextBlock from "@/components/basicBlockComponents/TextBlock";
 import TodoBlock from "@/components/basicBlockComponents/TodoBlock";
 import Heading1 from "@/components/basicBlockComponents/Heading1";
@@ -121,8 +147,8 @@ import Hint from "@/components/basicBlockComponents/Hint";
 export default {
 	name: "Home",
 	components: {
+		draggable,
 		AddBlockBtn,
-		DragBtn,
 		AddBlockContent,
 		TextBlock,
 		TodoBlock,
@@ -131,6 +157,11 @@ export default {
 		Heading3,
 		BulletedList,
 		Hint
+	},
+	data() {
+		return {
+			dragging: false
+		};
 	},
 	computed: {
 		isShowAddMenu() {
