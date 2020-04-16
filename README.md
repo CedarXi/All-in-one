@@ -14,7 +14,7 @@ All-in-one 是一个开源的模块化内容构建编辑器，它不同于传统
 * 内容无法跨模块复制
 * 其他一些小的问题
 
-#### 👏 已实现的功能
+#### 👏 已实现的模块
 - [x] 纯文本
 - [x] 待办清单
 - [x] 标题1
@@ -24,9 +24,9 @@ All-in-one 是一个开源的模块化内容构建编辑器，它不同于传统
 - [x] 提示栏
 
 
-#### 🧑‍💻 待开发的功能
+#### 🧑‍💻 待开发的模块
 - [ ] 组件的拖拽移动，拖拽准备用 Vue.Draggable 
-- [ ] 事件节点
+- [ ] 事件节点组件
 - [ ] 图片上传组件
 - [ ] 表格组件
 - [ ] 看板组件
@@ -49,7 +49,7 @@ The data saved by all components is stored in Vuex in the form of Json for diffe
 * Content cannot be copied across modules
 * Other minor issues
 
-#### 👏 Module to be developed
+#### 👏 Modules has been developed 
 
 - [x] Text
 - [x] Todo
@@ -60,9 +60,9 @@ The data saved by all components is stored in Vuex in the form of Json for diffe
 - [x] Hint
 
 
-#### 🧑‍💻 Modules developed
+#### 🧑‍💻 Modules to be developed
 - [ ] Drag and drop of components, drag and drop ready to use Vue.Draggable
-- [ ] EventNode
+- [ ] EventNode component
 - [ ] Image upload component
 - [ ] Form component
 - [ ] Kanban components
