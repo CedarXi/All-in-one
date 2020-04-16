@@ -3,7 +3,7 @@
 		<div class="header">
 			<h1>All-in-one</h1>
 			<p>模块化内容构建编辑器，基于Vue和element的打造</p>
-			<p>以Json格式保存输出，交互风格类似Notion</p>
+			<p>以Json格式输出，灵感来自Notion</p>
 			<!-- <el-button href="https://github.com/CedarXi/All-in-one" >GitHub</el-button> -->
 			<el-link
 				:underline="false"

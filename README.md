@@ -8,15 +8,26 @@ All-in-one 是一个开源的模块化内容构建编辑器，它不同于传统
 所有组件保存的数据，都以Json的形式存储在Vuex里供不同组件调用
 
 
-#### 🐞由于不是用WYSIWYG的编辑器进行二次开发，目前在文本编辑方面有一些不能解决的Bug
+#### 🐞 由于不是用WYSIWYG的编辑器进行二次开发，目前在文本编辑方面有一些不能解决的Bug
 
 * 当输入行大于等于2行时，键盘的上下按键没有办法处理光标在同组件的文本内容里上下移动
 * 内容无法跨模块复制
 * 其他一些小的问题
 
-#### 🧑‍💻待开发的功能清单
-- [ ] 图片上传组件
+#### 👏 已实现的功能
+- [x] 纯文本
+- [x] 待办清单
+- [x] 标题1
+- [x] 标题2
+- [x] 标题3
+- [x] 符号列表
+- [x] 提示栏
+
+
+#### 🧑‍💻 待开发的功能
 - [ ] 组件的拖拽移动，拖拽准备用 Vue.Draggable 
+- [ ] 事件节点
+- [ ] 图片上传组件
 - [ ] 表格组件
 - [ ] 看板组件
 
@@ -38,8 +49,20 @@ The data saved by all components is stored in Vuex in the form of Json for diffe
 * Content cannot be copied across modules
 * Other minor issues
 
-#### 🧑‍💻 List of features to be developed
-- [ ] Image upload component
+#### 👏 Module to be developed
+
+- [x] Text
+- [x] Todo
+- [x] Heading1
+- [x] Heading2
+- [x] Heading3
+- [x] BulletedList
+- [x] Hint
+
+
+#### 🧑‍💻 Modules developed
 - [ ] Drag and drop of components, drag and drop ready to use Vue.Draggable
+- [ ] EventNode
+- [ ] Image upload component
 - [ ] Form component
 - [ ] Kanban components
