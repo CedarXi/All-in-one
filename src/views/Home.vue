@@ -17,10 +17,9 @@
 				GitHub
 			</el-link>
 		</div>
-
 		<div class="container-870">
 			<div
-				:style="{ top: addMenuContentClientXY.y+20+'px', left:addMenuContentClientXY.x+48+'px' }"
+				:style="{ top: getterAddMenuContentLayerXY.y, left:getterAddMenuContentLayerXY.x }"
 				class="add-block-content"
 			>
 				<!-- 添加组件的弹窗 -->
@@ -167,12 +166,12 @@ export default {
 		isShowAddMenu() {
 			return this.$store.state.isShowAddMenu;
 		},
-		addMenuContentClientXY() {
-			return this.$store.state.addMenuContentClientXY;
-		},
-
+		
 		getCurrentPageBlocks() {
 			return this.$store.getters.getterCurrentPageBlocks;
+		},
+		getterAddMenuContentLayerXY() {
+			return this.$store.getters.getterAddMenuContentLayerXY;
 		}
 	}
 };
