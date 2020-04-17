@@ -7,6 +7,7 @@
 			placeholder="标题1"
 			@keydown.native="addNewTextBlock($event,BlocksIndex)"
 			@keyup.native="nextFocus($event,BlocksIndex)"
+			
 		></el-input>
 	</div>
 </template>
@@ -19,7 +20,7 @@ export default {
 		return {
 			mValue: this.value,
 			cursorStart: 0,
-			isEmptyDelete:true
+			isEmptyDelete: true
 		};
 	},
 	watch: {
@@ -132,16 +133,15 @@ export default {
 	display: flex;
 	align-items: center;
 
-	
 	.el-textarea__inner {
 		border: none;
 		outline: none;
-        font-size: 30px;
-        font-weight: 600;
+		font-size: 30px;
+		font-weight: 600;
 		width: 100%;
 		resize: none;
 		padding: 5px 0;
-        color: #303133;
+		color: #303133;
 	}
 	textarea::-webkit-input-placeholder {
 		color: #ffffff;

@@ -3,10 +3,11 @@
 		<el-input
 			type="textarea"
 			autosize
-			placeholder="按'+'插入内容或直接输入"
+			placeholder="点击'+'插入内容或直接输入"
 			v-model="mValue.text"
 			@keydown.native="addNewTextBlock($event,BlocksIndex)"
 			@keyup.native="nextFocus($event,BlocksIndex)"
+			
 		></el-input>
 	</div>
 </template>

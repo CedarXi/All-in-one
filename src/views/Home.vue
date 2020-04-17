@@ -17,6 +17,9 @@
 				GitHub
 			</el-link>
 		</div>
+		<div class="readOnly-switch">
+			<el-switch v-model="readOnly" active-text="只读模式" inactive-text="编辑模式"></el-switch>
+		</div>
 		<div class="container-870">
 			<div
 				:style="{ top: getterAddMenuContentLayerXY.y, left:getterAddMenuContentLayerXY.x }"
@@ -73,6 +76,10 @@
 			background-color: #ecf5ff;
 			color: #303133;
 		}
+	}
+	.readOnly-switch {
+		text-align: center;
+		margin-bottom: 20px;
 	}
 	.container-870 {
 		padding-top: 100px;
@@ -159,20 +166,42 @@ export default {
 	},
 	data() {
 		return {
-			dragging: false
+			dragging: false,
+			readOnly: false
 		};
 	},
 	computed: {
 		isShowAddMenu() {
 			return this.$store.state.isShowAddMenu;
 		},
-		
+
 		getCurrentPageBlocks() {
 			return this.$store.getters.getterCurrentPageBlocks;
 		},
 		getterAddMenuContentLayerXY() {
 			return this.$store.getters.getterAddMenuContentLayerXY;
 		}
+	},
+	watch: {
+		readOnly(val) {
+			if (val == true) {
+				let textareaDom = document.getElementsByTagName("textarea");
+				for (let index = 0; index < textareaDom.length; index++) {
+					const element = textareaDom[index];
+					element.readOnly = true;
+				}
+			}
+			if (val == false) {
+				let textareaDom = document.getElementsByTagName("textarea");
+				for (let index = 0; index < textareaDom.length; index++) {
+					const element = textareaDom[index];
+					element.readOnly = false;
+				}
+			}
+		}
+	},
+	mounted() {
+		// 处理textarea的只读属性切换
 	}
 };
 </script>
