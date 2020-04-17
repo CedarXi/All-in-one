@@ -34,7 +34,7 @@
 					v-for="(item,index) in getCurrentPageBlocks"
 					:key="index"
 				>
-					<div class="line-left">
+					<div class="line-left" v-if="readOnly ==false">
 						<!-- 弹出添加组件的弹窗+号按钮 -->
 						<AddBlockBtn :BlocksIndex="index"></AddBlockBtn>
 						<!-- 拖拽组件 -->
