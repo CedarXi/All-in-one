@@ -1,5 +1,9 @@
 <template>
 	<div class="home">
+		<AddBlockContent></AddBlockContent>
+
+		<!-- 添加组件的弹窗 -->
+
 		<div class="header">
 			<h1>All-in-one</h1>
 			<p>模块化内容构建编辑器，基于Vue和element的打造</p>
@@ -21,13 +25,6 @@
 			<el-switch v-model="readOnly" active-text="只读模式" inactive-text="编辑模式"></el-switch>
 		</div>
 		<div class="container-870">
-			<div
-				:style="{ top: getterAddMenuContentLayerXY.y, left:getterAddMenuContentLayerXY.x }"
-				class="add-block-content"
-			>
-				<!-- 添加组件的弹窗 -->
-				<AddBlockContent></AddBlockContent>
-			</div>
 			<draggable tag="ul" :list="getCurrentPageBlocks" class="list-group" handle=".handle">
 				<div
 					class="line-wrap list-group-item"
@@ -104,9 +101,6 @@
 			cursor: pointer;
 		}
 
-		.add-block-content {
-			position: absolute;
-		}
 		.line-wrap {
 			display: flex;
 			align-items: center;

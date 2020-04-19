@@ -3,11 +3,10 @@
 		<el-input
 			type="textarea"
 			autosize
-			placeholder="点击'+'插入内容或直接输入"
+			placeholder="输入'+'快速插入内容"
 			v-model="mValue.text"
 			@keydown.native="addNewTextBlock($event,BlocksIndex)"
 			@keyup.native="nextFocus($event,BlocksIndex)"
-			
 		></el-input>
 	</div>
 </template>
@@ -54,9 +53,6 @@ export default {
 					}
 				};
 
-				// console.log(startPos);
-				// console.log(this.mValue.length);
-
 				if (startPos != this.mValue.text.length) {
 					// 如果光标的位置不在最末尾的时候
 					// 对光标之后的内容进行截取，并传递给新建的字符串
@@ -72,6 +68,27 @@ export default {
 					"mutationAddCurrentPageBlocks",
 					addBlockInfo
 				);
+			}
+			// console.log(currInput)
+			// console.log(dom)
+			// console.log(currInput)
+
+			// 如果内容为空的时候，并且按了+号按钮，就可以唤醒键盘上的添加内容的弹窗
+			if (
+				(event.keyCode == 187 || event.keyCode == 107) &&
+				currInput.value == ""
+			) {
+				currInput.disabled = true;
+				console.log(this.mValue.text);
+				let e = currInput.getBoundingClientRect();
+				let a = { x: e.left - 48, y: e.top + 20 };
+				let b = true;
+				this.$store.commit("mutationAddMenuContentLayerXY", a);
+				this.$store.commit("mutationCurrentBlockIndex", index);
+				setTimeout(() => {
+					this.$store.commit("mutationIsShowAddMenu", b);
+				}, 50);
+				currInput.disabled = false;
 			}
 		},
 		nextFocus(event, index) {

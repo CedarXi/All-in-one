@@ -38,10 +38,15 @@ const getters = {
     getterAddMenuContentLayerXY(state) {
 
         let a = state.addMenuContentLayerXY
+        let clientHeight = window.innerHeight
 
-        a.y = `${a.y+20}px`
-        a.x = `${a.x+48}px`
+        if (a.y > (clientHeight / 2)) {
+            a.y = a.y - 380
+        }
+        a.y = `${a.y + 20}px`
+        a.x = `${a.x + 48}px`
 
+        // 当前浏览器的高度
         return a
     }
 

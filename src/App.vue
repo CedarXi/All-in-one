@@ -13,6 +13,12 @@
 	text-align: left;
 	color: #303133;
 	font-size: 16px;
+
+}
+
+html,body{
+	padding: 0;
+	margin: 0;
 }
 
 </style>

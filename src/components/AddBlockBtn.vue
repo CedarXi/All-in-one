@@ -35,16 +35,17 @@ export default {
 	},
 	methods: {
 		openMenuShow(e) {
-			let a = { x: e.layerX, y: e.layerY };
+			let a = { x: e.clientX, y: e.clientY };
 			// console.log(e)
 			let b = true;
+			// console.log(e);
+			// console.log("111");
+
 			this.$store.commit("mutationAddMenuContentLayerXY", a);
 			this.$store.commit("mutationCurrentBlockIndex", this.BlocksIndex);
-
 			setTimeout(() => {
 				this.$store.commit("mutationIsShowAddMenu", b);
 			}, 50);
-			
 		}
 	}
 };

@@ -1,6 +1,10 @@
 <template>
-	<div class="addBlock">
-		<div class="dropdown-menu" v-if="isShowAddMenu == true">
+	<div class="addBlock-content" v-if="isShowAddMenu == true" style="z-index: 2001;">
+		<!-- {{getterAddMenuContentLayerXY}} -->
+		<div
+			class="dropdown-menu"
+			:style="{ top: getterAddMenuContentLayerXY.y, left:getterAddMenuContentLayerXY.x }"
+		>
 			<span class="block-type-tip">基础模块</span>
 			<div class="block-item" @click="addBlock('text')">
 				<div class="block-item-img">
@@ -70,12 +74,19 @@
 </template>
 
 <style lang="less">
-.addBlock {
+.addBlock-content {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+	margin: 0;
 	.dropdown-menu {
 		background: #ffffff;
 		position: absolute;
 		// margin-left: 58px;
-		z-index: 2003;
+		z-index: 2002;
 		width: 320px;
 		height: 360px;
 		overflow-y: auto;
@@ -128,7 +139,7 @@
 // @ is an alias to /src
 
 export default {
-	name: "AddBlock",
+	name: "addBlock-content",
 	data() {
 		return {
 			isShowMenu: this.isShowAddMenu
@@ -160,6 +171,12 @@ export default {
 		},
 		currentBlockIndex() {
 			return this.$store.state.currentBlockIndex;
+		},
+		getterAddMenuContentLayerXY() {
+			return this.$store.getters.getterAddMenuContentLayerXY;
+		},
+		currentPageBlocks() {
+			return this.$store.state.currentPageBlocks;
 		}
 	},
 	methods: {
@@ -225,18 +242,29 @@ export default {
 					}
 				};
 			}
-			
 
 			this.$store.commit("mutationAddCurrentPageBlocks", addBlockInfo);
 
-			// 处理光标的显示问题，新建后，光标也到新建栏
-			setTimeout(() => {
-				let dom = document.getElementsByTagName("textarea");
-				let currInput = dom[this.currentBlockIndex];
-				let nextInput = dom[this.currentBlockIndex + 1];
-				let lastInput = dom[this.currentBlockIndex - 1];
-				nextInput.focus();
-			}, 300);
+			// 如果是触发添加内容的面板是从text模块显示的模块添加弹窗页面的，并且内容为空
+			if (
+				this.currentPageBlocks[this.currentBlockIndex].type == "text" &&
+				this.currentPageBlocks[this.currentBlockIndex].data.text == ""
+			) {
+				// 处理光标的显示问题，在当前模块显示
+				this.currentPageBlocks.splice(this.currentBlockIndex, 1);
+				setTimeout(() => {
+					let dom = document.getElementsByTagName("textarea");
+					let currInput = dom[this.currentBlockIndex];
+					currInput.focus();
+				}, 300);
+			} else {
+				// 处理光标的显示问题，新建后，光标也到新建栏
+				setTimeout(() => {
+					let dom = document.getElementsByTagName("textarea");
+					let nextInput = dom[this.currentBlockIndex + 1];
+					nextInput.focus();
+				}, 300);
+			}
 		}
 	}
 };
