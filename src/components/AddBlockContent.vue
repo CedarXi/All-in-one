@@ -1,9 +1,15 @@
 <template>
-	<div class="addBlock-content" v-if="isShowAddMenu == true" style="z-index: 2001;">
+	<div
+		class="addBlock-content"
+		v-if="isShowAddMenu == true"
+		style="z-index: 2001;"
+		@mousewheel.prevent
+	>
 		<!-- {{getterAddMenuContentLayerXY}} -->
 		<div
 			class="dropdown-menu"
 			:style="{ top: getterAddMenuContentLayerXY.y, left:getterAddMenuContentLayerXY.x }"
+			@mousewheel.stop
 		>
 			<span class="block-type-tip">基础模块</span>
 			<div class="block-item" @click="addBlock('text')">
@@ -148,6 +154,7 @@ export default {
 	watch: {
 		isShowAddMenu(value) {
 			if (value == true) {
+							
 				document.addEventListener("click", e => {
 					// console.log(event.target.getAttribute("class"))
 					if (

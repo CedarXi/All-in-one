@@ -1,8 +1,7 @@
 <template>
-	<div class="home">
-		<AddBlockContent></AddBlockContent>
-
+	<div class="home" >
 		<!-- 添加组件的弹窗 -->
+		<AddBlockContent></AddBlockContent>
 
 		<div class="header">
 			<h1>All-in-one</h1>
