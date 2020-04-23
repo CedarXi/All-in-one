@@ -1,84 +1,50 @@
 <template>
 	<div class="about">
-		<div class="col-1">
-			<button class="btn btn-secondary button" @click="add">Add</button>
-		</div>
-
-		<div class="col-7">
-			<h3>Draggable {{ draggingInfo }}</h3>
-
-			<draggable tag="ul" :list="list" class="list-group" handle=".handle">
-				<li class="list-group-item" v-for="(element, idx) in list" :key="element.name">
-					<!-- <i class="fa fa-align-justify handle"></i> -->
-					<i class="el-icon-edit handle"></i>
-					<span class="text">{{ element.name }}</span>
-					<input type="text" class="form-control" v-model="element.text" />
-					<!-- <i class="el-icon-edit" @click="removeAt(idx)"></i> -->
-				</li>
-			</draggable>
-		</div>
-
-		<rawDisplayer class="col-3" :value="list" title="List" />
+		<el-button @click="test123()">aaa</el-button>
+		<el-select v-model="value" placeholder="请选择" >
+			<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+		</el-select>
 	</div>
 </template>
 
 <script>
-let id = 3;
-import draggable from "vuedraggable";
-
 export default {
 	name: "about",
-	display: "Handle",
-	instruction: "Drag using the handle icon",
-	order: 5,
-	components: {
-		draggable
-	},
 	data() {
 		return {
-			list: [
-				{ name: "John", text: "", id: 0 },
-				{ name: "Joao", text: "", id: 1 },
-				{ name: "Jean", text: "", id: 2 }
+			options: [
+				{
+					value: "选项1",
+					label: "黄金糕"
+				},
+				{
+					value: "选项2",
+					label: "双皮奶"
+				},
+				{
+					value: "选项3",
+					label: "蚵仔煎"
+				},
+				{
+					value: "选项4",
+					label: "龙须面"
+				},
+				{
+					value: "选项5",
+					label: "北京烤鸭"
+				}
 			],
-			dragging: false
+			value: ""
 		};
 	},
-	computed: {
-		draggingInfo() {
-			return this.dragging ? "under drag" : "";
+	methods: {
+		test123: function() {
+			// this.$refs.messageDrop.dropdown.visible = true
+			console.log("111");
 		}
 	},
-	methods: {
-		removeAt(idx) {
-			this.list.splice(idx, 1);
-		},
-		add: function() {
-			id++;
-			this.list.push({ name: "Juan " + id, id, text: "" });
-		}
+	mounted() {
+		// this.$refs.messageDrop.show();
 	}
 };
 </script>
-<style scoped>
-.button {
-	margin-top: 35px;
-}
-.handle {
-	float: left;
-	padding-top: 8px;
-	padding-bottom: 8px;
-}
-.close {
-	float: right;
-	padding-top: 8px;
-	padding-bottom: 8px;
-}
-input {
-	display: inline-block;
-	width: 50%;
-}
-.text {
-	margin: 20px;
-}
-</style>

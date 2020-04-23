@@ -13,6 +13,7 @@
 		>
 			<div v-for="(item,index) in addBlockInfoArray" :key="index">
 				<span class="block-type-tip" v-if="index == 0">基础模块</span>
+				<span class="block-type-tip" v-if="index == 7">媒体和数据</span>
 				<div class="block-item" @click="addBlock(item.type)">
 					<div class="block-item-img">
 						<img :src="getImgUrl(item.type)" style="width: 100%;" />
@@ -132,6 +133,11 @@ export default {
 					name: "提示栏",
 					tip: "用于提示比较重要的信息",
 					type: "hint"
+				},
+				{
+					name: "图片",
+					tip: "用于提示比较重要的信息",
+					type: "hint"
 				}
 			]
 		};
@@ -139,51 +145,6 @@ export default {
 	watch: {
 		isShowAddMenu: function(value) {
 			if (value == true) {
-				let dom = document.getElementsByTagName("textarea");
-				let currInput = dom[this.currentBlockIndex];
-				let nextInput = dom[this.currentBlockIndex + 1];
-
-				// 当添加模块菜单显示后，鼠标可以上下移动选中模块
-				let x = document.getElementsByClassName("block-item");
-				let index = -1;
-				document.onkeydown = () => {
-					let key = window.event.keyCode;
-					let event = window.event;
-
-					// 回车事件
-					if (key == 13) {
-						console.log("回车事件");
-					}
-					// 上方向键事件
-					if (key == 38) {
-						if (index > 0) {
-							index--;
-						}
-						event.preventDefault();
-						for (let i = 0; i < x.length; i++) {
-							x[i].style.background = "none";
-						}
-						x.item(index).style.background = "#eeeeee";
-					}
-					// 下方向键事件
-					if (key == 40) {
-						if (index < x.length - 1) {
-							index++;
-						}
-						event.preventDefault();
-						for (let i = 0; i < x.length; i++) {
-							x[i].style.background = "none";
-						}
-						x.item(index).style.background = "#eeeeee";
-					}
-					// 按下ESC 关闭添加模块弹窗
-					if (key == 27) {
-						event.preventDefault();
-						this.$store.commit("mutationIsShowAddMenu", false);
-						currInput.focus();
-					}
-				};
-
 				document.addEventListener("click", e => {
 					// console.log(event.target.getAttribute("class"))
 					if (
