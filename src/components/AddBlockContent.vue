@@ -11,68 +11,16 @@
 			:style="{ top: getterAddMenuContentLayerXY.y, left:getterAddMenuContentLayerXY.x }"
 			@mousewheel.stop
 		>
-			<span class="block-type-tip">基础模块</span>
-			<div class="block-item" @click="addBlock('text')">
-				<div class="block-item-img">
-					<img src="../assets/text.png" style="width: 100%;" />
-				</div>
-				<div class="block-item-intro">
-					<h4>纯文本</h4>
-					<span>用纯文本开始写内容</span>
-				</div>
-			</div>
-			<div class="block-item" @click="addBlock('todo')">
-				<div class="block-item-img">
-					<img src="../assets/to-do.png" style="width: 100%;" />
-				</div>
-				<div class="block-item-intro">
-					<h4>待办清单</h4>
-					<span>用待办清单去追踪任务</span>
-				</div>
-			</div>
-			<div class="block-item" @click="addBlock('heading1')">
-				<div class="block-item-img">
-					<img src="../assets/heading1.png" style="width: 100%;" />
-				</div>
-				<div class="block-item-intro">
-					<h4>标题1</h4>
-					<span>大字号标题</span>
-				</div>
-			</div>
-			<div class="block-item" @click="addBlock('heading2')">
-				<div class="block-item-img">
-					<img src="../assets/heading2.png" style="width: 100%;" />
-				</div>
-				<div class="block-item-intro">
-					<h4>标题2</h4>
-					<span>中字号标题</span>
-				</div>
-			</div>
-			<div class="block-item" @click="addBlock('heading3')">
-				<div class="block-item-img">
-					<img src="../assets/heading3.png" style="width: 100%;" />
-				</div>
-				<div class="block-item-intro">
-					<h4>标题3</h4>
-					<span>小字号标题</span>
-				</div>
-			</div>
-			<div class="block-item" @click="addBlock('BulletedList')">
-				<div class="block-item-img">
-					<img src="../assets/bulleted-list.png" style="width: 100%;" />
-				</div>
-				<div class="block-item-intro">
-					<h4>符号列表</h4>
-					<span>圆形简单符号列表</span>
-				</div>
-			</div>
-			<div class="block-item" @click="addBlock('hint')">
-				<div class="block-item-img">
-					<img src="../assets/hint.png" style="width: 100%;" />
-				</div>
-				<div class="block-item-intro">
-					<h4>提示栏</h4>
-					<span>用于提示比较重要的信息</span>
+			<div v-for="(item,index) in addBlockInfoArray" :key="index">
+				<span class="block-type-tip" v-if="index == 0">基础模块</span>
+				<div class="block-item" @click="addBlock(item.type)">
+					<div class="block-item-img">
+						<img :src="getImgUrl(item.type)" style="width: 100%;" />
+					</div>
+					<div class="block-item-intro">
+						<h4>{{item.name}}</h4>
+						<span>{{item.tip}}</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -110,7 +58,7 @@
 			padding: 5px 20px 7px 20px;
 			display: flex;
 			align-items: center;
-
+			background: #ffffff;
 			.block-item-img {
 				width: 45px;
 				height: 45px;
@@ -148,13 +96,94 @@ export default {
 	name: "addBlock-content",
 	data() {
 		return {
-			isShowMenu: this.isShowAddMenu
+			isShowMenu: this.isShowAddMenu,
+			addBlockInfoArray: [
+				{
+					name: "纯文本",
+					tip: "用纯文本开始写内容",
+					type: "text"
+				},
+				{
+					name: "待办清单",
+					tip: "用待办清单去追踪任务",
+					type: "todo"
+				},
+				{
+					name: "标题1",
+					tip: "大字号标题",
+					type: "heading1"
+				},
+				{
+					name: "标题2",
+					tip: "中字号标题",
+					type: "heading2"
+				},
+				{
+					name: "标题3",
+					tip: "小字号标题",
+					type: "heading3"
+				},
+				{
+					name: "符号列表",
+					tip: "大字号标题",
+					type: "BulletedList"
+				},
+				{
+					name: "提示栏",
+					tip: "用于提示比较重要的信息",
+					type: "hint"
+				}
+			]
 		};
 	},
 	watch: {
-		isShowAddMenu(value) {
+		isShowAddMenu: function(value) {
 			if (value == true) {
-							
+				let dom = document.getElementsByTagName("textarea");
+				let currInput = dom[this.currentBlockIndex];
+				let nextInput = dom[this.currentBlockIndex + 1];
+
+				// 当添加模块菜单显示后，鼠标可以上下移动选中模块
+				let x = document.getElementsByClassName("block-item");
+				let index = -1;
+				document.onkeydown = () => {
+					let key = window.event.keyCode;
+					let event = window.event;
+
+					// 回车事件
+					if (key == 13) {
+						console.log("回车事件");
+					}
+					// 上方向键事件
+					if (key == 38) {
+						if (index > 0) {
+							index--;
+						}
+						event.preventDefault();
+						for (let i = 0; i < x.length; i++) {
+							x[i].style.background = "none";
+						}
+						x.item(index).style.background = "#eeeeee";
+					}
+					// 下方向键事件
+					if (key == 40) {
+						if (index < x.length - 1) {
+							index++;
+						}
+						event.preventDefault();
+						for (let i = 0; i < x.length; i++) {
+							x[i].style.background = "none";
+						}
+						x.item(index).style.background = "#eeeeee";
+					}
+					// 按下ESC 关闭添加模块弹窗
+					if (key == 27) {
+						event.preventDefault();
+						this.$store.commit("mutationIsShowAddMenu", false);
+						currInput.focus();
+					}
+				};
+
 				document.addEventListener("click", e => {
 					// console.log(event.target.getAttribute("class"))
 					if (
@@ -272,6 +301,9 @@ export default {
 					nextInput.focus();
 				}, 300);
 			}
+		},
+		getImgUrl(type) {
+			return require("@/assets/" + type + ".png");
 		}
 	}
 };

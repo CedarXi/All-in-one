@@ -3,7 +3,7 @@
 		<el-input
 			type="textarea"
 			autosize
-			placeholder="输入'+'快速插入内容"
+			placeholder="输入'/'快速插入内容"
 			v-model="mValue.text"
 			@keydown.native="addNewTextBlock($event,BlocksIndex)"
 			@keyup.native="nextFocus($event,BlocksIndex)"
@@ -73,9 +73,9 @@ export default {
 			// console.log(dom)
 			// console.log(currInput)
 
-			// 如果内容为空的时候，并且按了+号按钮，就可以唤醒键盘上的添加内容的弹窗
+			// 如果内容为空的时候，并且按了 '/ '号按钮，就可以唤醒键盘上的添加内容的弹窗
 			if (
-				(event.keyCode == 187 || event.keyCode == 107) &&
+				(event.keyCode == 191 || event.keyCode == 111) &&
 				currInput.value == ""
 			) {
 				currInput.disabled = true;
@@ -121,7 +121,7 @@ export default {
 			// 如果已经有内容了，再点击删除按钮会把是否为空删除设置为false，如果直接删除，则是可以的
 			// 逻辑就是要先确定一步是否为空，不能同步进行
 
-			// 当内容为空的时候
+			// 当内容为空的时候,点击删除的按键
 			if (event.keyCode == 46 || event.keyCode == 8) {
 				if (
 					currInput.value == "" &&
