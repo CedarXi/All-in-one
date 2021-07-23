@@ -1,3 +1,6 @@
+![image](https://user-images.githubusercontent.com/16424854/126763587-29d8797a-cfc5-4157-9d19-2f56d55f4e4d.png)
+
+
 # All-in-one是什么
 All-in-one 是一个开源的模块化内容构建编辑器，它不同于传统的文本编辑器，所有的内容都是以模块的概念来打造。灵感来自Notion
 
